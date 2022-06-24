@@ -5,7 +5,7 @@
  */
 
 
-
+import axios from 'axios';
 window.Vue = require('vue').default;
 
 /**

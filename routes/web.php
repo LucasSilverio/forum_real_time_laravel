@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,17 @@ Route::get('/locale/{locale}', function($locale){
     session(['locale' => $locale]);
     return back();
 });
+
+Route::middleware(['auth'])
+    ->group(function(){
+        Route::get('/threads', [ThreadController::class, 'index']);
+        Route::post('/threads', [ThreadController::class, 'store']);
+        Route::put('/threads/{thread}', [ThreadController::class, 'update']);
+        Route::get('/threads/{thread}/edit', function (\App\Models\Thread $thread){
+            return view('threads.edit', compact('thread'));
+        });
+    });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
