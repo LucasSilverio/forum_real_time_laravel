@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,14 +30,21 @@ Route::get('/locale/{locale}', function($locale){
     return back();
 });
 
+Route::get('/threads', [ThreadController::class, 'index']);
+Route::get('/replies/{id}', [ReplyController::class, 'show']);
+
+Route::get('/login/{provider}', [SocialAuthController::class, 'redirect']);
+Route::get('/login/{provider}/callback', [SocialAuthController::class, 'callback']);
+
 Route::middleware(['auth'])
-    ->group(function(){
-        Route::get('/threads', [ThreadController::class, 'index']);
+    ->group(function(){        
         Route::post('/threads', [ThreadController::class, 'store']);
         Route::put('/threads/{thread}', [ThreadController::class, 'update']);
         Route::get('/threads/{thread}/edit', function (\App\Models\Thread $thread){
             return view('threads.edit', compact('thread'));
         });
+        
+        Route::post('/replies', [ReplyController::class, 'store']);
     });
 
 Auth::routes();

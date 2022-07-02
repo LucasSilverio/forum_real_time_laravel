@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+ 
 @section('content')
 <div class="container">
     <h3>{{ $result->title }}</h3>
@@ -8,7 +8,7 @@
             {{ $result->body }}
         </div>
         <div class="card-action">
-            @if (\Auth::user()->can('update', $result))
+            @if (\Auth::user() and \Auth::user()->can('update', $result))
                 <a href="/threads/{{ $result->id }}/edit">{{ __('Edit') }}</a>
             @endif
             <a href="/">{{ __('Back') }}</a>
@@ -20,11 +20,12 @@
         reply="{{ __('Reply') }}"
         yourAnswer="{{ __('Your answer') }}"
         send="{{ __('Send') }}"
+        thread-id="{{$result->id}}"
     >
         @include('layouts.default.preloader')
     </replies>
 </div>
 @endsection
-@section('scripts')  {{-- nome dado no yield --}}
+@section('scripts')  {{-- nome dado no yield --}} 
     <script src="/js/replies.js"></script>
 @endsection

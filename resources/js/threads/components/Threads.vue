@@ -24,6 +24,7 @@
                 </tbody>
             </table>
         </div>
+        
         <div class="card-content">
             <span class="card-title">{{newThread}}</span>
 
@@ -59,11 +60,18 @@ import axios from 'axios';
                 threads_to_save: {
                     title:'',
                     body:''
-                }
+                },
             }            
         },
         mounted(){
-            this.getThreads();
+            this.getThreads(); 
+            
+            Echo.channel('new.thread')
+                .listen('NewThread', (e) => {
+                    if (e.thread) {
+                        this.threds_response.data.splice(0, 0, e.thread)
+                    }
+                });
         },
         methods:{
             async getThreads(){

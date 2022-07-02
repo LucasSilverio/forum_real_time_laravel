@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <h3>{{ __('Login') }}</h3>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -60,6 +60,12 @@
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+
+                                 @if (Route::has('password.request'))
+                                    <a class="btn btn-info" href="/login/facebook">
+                                        {{ __('Login With Facebook') }}
                                     </a>
                                 @endif
                             </div>
