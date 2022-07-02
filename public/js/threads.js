@@ -51742,7 +51742,7 @@ var render = function () {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(thread.title))]),
               _vm._v(" "),
-              _c("td", [_vm._v("0")]),
+              _c("td", [_vm._v(_vm._s(thread.replies_count || 0))]),
               _vm._v(" "),
               _c("td", [
                 _c("a", { attrs: { href: "/threads/" + thread.id } }, [
